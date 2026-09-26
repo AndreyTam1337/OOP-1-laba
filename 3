@@ -1,1 +1,64 @@
+using System;
 
+namespace Task3
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+            double a = 1000.0;
+            double b = 0.0001;
+
+            PrintResult(a, b);
+            Console.WriteLine();
+
+            PrintResult((float)a, (float)b);
+
+            Console.WriteLine();
+            Console.WriteLine("Нажмите любую клавишу...");
+            Console.ReadKey();
+        }
+
+        static void PrintResult(double a, double b)
+        {
+            double numerator = CalculateNumerator(a, b);
+            double denominator = CalculateDenominator(a, b);
+
+            Console.WriteLine("=== Расчёт с типом double ===");
+            Console.WriteLine("Числитель   = " + numerator);
+            Console.WriteLine("Знаменатель = " + denominator);
+            Console.WriteLine("Результат   = " + numerator / denominator);
+        }
+
+        static void PrintResult(float a, float b)
+        {
+            float numerator = CalculateNumerator(a, b);
+            float denominator = CalculateDenominator(a, b);
+
+            Console.WriteLine("=== Расчёт с типом float ===");
+            Console.WriteLine("Числитель   = " + numerator);
+            Console.WriteLine("Знаменатель = " + denominator);
+            Console.WriteLine("Результат   = " + numerator / denominator);
+        }
+
+        static double CalculateNumerator(double a, double b)
+        {
+            return Math.Pow(a + b, 3) - (Math.Pow(a, 3) + 3 * a * a * b);
+        }
+
+        static float CalculateNumerator(float a, float b)
+        {
+            return (float)Math.Pow(a + b, 3) - ((float)Math.Pow(a, 3) + 3 * a * a * b);
+        }
+        static double CalculateDenominator(double a, double b)
+        {
+            return 3 * a * b * b + b * b;
+        }
+        static float CalculateDenominator(float a, float b)
+        {
+            return 3 * a * b * b + b * b;
+        }
+    }
+}
