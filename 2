@@ -1,1 +1,61 @@
+using System;
 
+namespace Task2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+            double x = ReadDouble("Введите x1: ");
+            double y = ReadDouble("Введите y1: ");
+
+            Console.WriteLine();
+
+            bool isInArea = IsPointInArea(x, y);
+            Console.WriteLine("Точка принадлежит области: " + isInArea);
+
+            Console.WriteLine();
+            Console.WriteLine("Нажмите любую клавишу...");
+            Console.ReadKey();
+        }
+
+        static double ReadDouble(string prompt)
+        {
+            double value;
+            bool isParsed;
+            do
+            {
+                Console.Write(prompt);
+                isParsed = double.TryParse(Console.ReadLine(), out value);
+                if (!isParsed)
+                    Console.WriteLine("Нужно ввести число");
+            } while (!isParsed);
+            return value;
+        }
+
+        static bool IsPointInArea(double x, double y)
+        {
+            bool isInLeftTriangle = IsPointInLeftTriangle(x, y);
+            bool isInRightTriangle = IsPointInRightTriangle(x, y);
+            return isInLeftTriangle || isInRightTriangle;
+        }
+
+        static bool IsPointInLeftTriangle(double x, double y)
+        {
+            bool isInXRange = x >= -5 && x <= 0;
+            bool isInYRange = y >= 0;
+            bool isBelowHypotenuse = y <= (3.0 / 5.0) * x + 3.0;
+            return isInXRange && isInYRange && isBelowHypotenuse;
+        }
+
+        static bool IsPointInRightTriangle(double x, double y)
+        {
+            bool isInXRange = x >= 0 && x <= 5;
+            bool isInYRange = y <= 0;
+            bool isAboveHypotenuse = y >= (3.0 / 5.0) * x - 3.0;
+            return isInXRange && isInYRange && isAboveHypotenuse;
+        }
+    }
+}
