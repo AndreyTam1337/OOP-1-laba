@@ -1,1 +1,100 @@
+using System;
 
+namespace Task1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+
+            int n = ReadInt("Введите n: ");
+            int m = ReadInt("Введите m: ");
+            double x = ReadDouble("Введите x: ");
+
+            Console.WriteLine();
+            PrintSpecialCaseMessage(x);
+            Console.WriteLine();
+
+            PrintExpression1(n, m);
+            PrintExpression2(n, m);
+            PrintExpression3(n, m);
+            PrintExpression4(x);
+
+            Console.WriteLine();
+            Console.WriteLine("Нажмите любую клавишу...");
+            Console.ReadKey();
+        }
+
+        static int ReadInt(string prompt)
+        {
+            int value;
+            bool isParsed;
+            do
+            {
+                Console.Write(prompt);
+                isParsed = int.TryParse(Console.ReadLine(), out value);
+                if (!isParsed)
+                    Console.WriteLine("Введите целое число");
+            } while (!isParsed);
+            return value;
+        }
+
+        static double ReadDouble(string prompt)
+        {
+            double value;
+            bool isParsed;
+            do
+            {
+                Console.Write(prompt);
+                isParsed = double.TryParse(Console.ReadLine(), out value);
+                if (!isParsed)
+                    Console.WriteLine("Введите целое число");
+            } while (!isParsed);
+            return value;
+        }
+
+        static void PrintSpecialCaseMessage(double x)
+        {
+            if (x == 1 || x == -1)
+                Console.WriteLine("x = 1 или x = -1 ");
+            else
+                Console.WriteLine("x не равен 1 и не равен -1 ");
+        }
+
+        static void PrintExpression1(int n, int m)
+        {
+            if (m == 0)
+                Console.WriteLine("n++ / -m = нельзя вычислить ");
+            else
+            {
+                int result = n++ / -m;
+                Console.WriteLine("n++ / -m = " + result);
+            }
+        }
+
+        static void PrintExpression2(int n, int m)
+        {
+            if (m == 0)
+                Console.WriteLine("n-- > n/m++ = нельзя вычислить ");
+            else
+            {
+                bool isGreater = n-- > n / m++;
+                Console.WriteLine("n-- > n/m++ = " + isGreater);
+            }
+        }
+
+        static void PrintExpression3(int n, int m)
+        {
+            bool isLess = m < n++;
+            Console.WriteLine("m < n++ = " + isLess);
+        }
+
+        static void PrintExpression4(double x)
+        {
+            double radicand = Math.Exp(x) - Math.Sin(x);
+            double result = Math.Sign(radicand) * Math.Pow(Math.Abs(radicand), 1.0 / 3.0);
+            Console.WriteLine("∛(e^x - sin(x)) = " + result);
+        }
+    }
+}
